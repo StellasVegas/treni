@@ -26,6 +26,12 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+TEMPLATE_DIRS = (
+    '/home/serg/Trenirovki/mytrenerovki/mytrenerovki/templates',
+    '/home/serg/Trenirovki/trenirovka/templates',
+    '/home/serg/Trenirovki/mytrenerovki/templates',
+)
+
 
 # Application definition
 
@@ -36,6 +42,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'trenirovka',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -66,7 +73,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-Ru'
 
 TIME_ZONE = 'UTC'
 

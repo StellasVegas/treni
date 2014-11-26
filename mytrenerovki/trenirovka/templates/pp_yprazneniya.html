@@ -1,0 +1,39 @@
+<html> 
+	<body>
+		<h1>
+		  Порядковый номер упражнения
+		</h1>	
+
+		<table border="1">
+			{% for ypr in pp_yprazneniya_list %}
+				<tr>
+					<td>{{ypr.pp}}</td>
+					<td>{{ypr.name}}</td>
+
+
+				</tr>
+			{% empty %}
+				<tr><td>Категорий нет</td></tr>
+			{% endfor%}
+		</table>	
+
+
+	<div>
+		<a href="/podhodi/"> Справочник Порядковый номер подхода</a>
+	</div>
+
+	<div>
+		<a href="/ypr/"> Справочник номер Упражнения</a>
+	</div>
+
+	<div>
+		<a href="/vid_podhoda/"> Справочник Видов подходов (Основная, легкая)</a>
+	</div>
+
+	<div>
+		<a href="/vid_treni/"> Справочник Вид Упражнения</a>
+	</div>
+
+
+	</body>
+</html>
