@@ -1,0 +1,78 @@
+{% extends "index.html" %}
+
+
+{% block sidebar %}
+<ul>
+		<h1>
+			{{name_user.user}}
+		  <p> Занятие № {{item_id}} </p>
+		</h1>	
+</ul>
+{% endblock %}	
+
+{% block content%}
+
+
+
+
+	{% for ypr in yprazneniya_list %}
+		<div>	
+			<tr>
+				<p>{{ypr.pp_yprazneniya}}. Вид упражнения: {{ypr.vid_treni}}. Тип упражнения: {{ypr.vid_podhoda}}</p>		
+			</tr>
+
+				<table border="1">
+					<tr>
+						<td  style="font-weight:bold" > № Подход</td>
+
+							{% for podhod in zanyatie_list %}
+								
+								{%if ypr.id == podhod.ypraznenie %}
+											
+									<td>{{podhod.pp_podhoda}}</td>
+									
+								{% endif%}
+								
+							{% empty %}
+								<tr><td>Подходов нет</td></tr>
+							{% endfor%}
+					</tr>
+
+					<tr>
+						<td  style="font-weight:bold" > № Вес</td>	
+							{% for podhod in zanyatie_list %}
+
+									{%if ypr.id == podhod.ypraznenie %}
+
+										<td>{{podhod.ves}}</td>			
+
+									
+									{% endif%}
+						
+							{% empty %}
+								<td>Подходов нет</td>
+							{% endfor%}
+					</tr>
+
+					<tr>
+						<td  style="font-weight:bold" > Повторения</td>	
+							{% for podhod in zanyatie_list %}
+
+								{%if ypr.id == podhod.ypraznenie%}			
+									<td>{{podhod.povtoreniya}}</td>
+								{% endif%}
+										
+							{% empty %}
+								<td>Подходов нет</td>
+							{% endfor%}
+					</tr>
+			</table>
+
+
+
+	{% empty %}
+		<p>Упражнений нет</p>
+	{% endfor%}
+	
+
+{% endblock %}

@@ -1,13 +1,23 @@
-<html> 
-	<body>
+{% extends "index.html" %}
+
+
+{% block sidebar %}
+<ul>
 		<h1>
 		  Список видов занятий
 		</h1>	
+</ul>
+{% endblock %}	
+
+{% block content%}
 
 		<table border="1">
+					<td  style="font-weight:bold" > №</td>
+					<td  style="font-weight:bold" >Название</td>
 			{% for vid in vid_podhoda_list %}
 				<tr>
 					
+					<td>{{vid.id}}</td>
 					<td>{{vid.name}}</td>
 
 
@@ -17,23 +27,4 @@
 			{% endfor%}
 		</table>	
 
-
-	<div>
-		<a href="/podhodi/"> Справочник Порядковый номер подхода</a>
-	</div>
-
-	<div>
-		<a href="/ypr/"> Справочник номер Упражнения</a>
-	</div>
-
-	<div>
-		<a href="/vid_podhoda/"> Справочник Видов подходов (Основная, легкая)</a>
-	</div>
-
-	<div>
-		<a href="/vid_treni/"> Справочник Вид Упражнения</a>
-	</div>
-
-
-	</body>
-</html>
+{% endblock %}

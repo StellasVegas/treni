@@ -3,9 +3,19 @@
 
 {% block sidebar %}
 <ul>
-		<h1>
-		  Вид упражнения
-		</h1>	
+Добавлен элемент {{name}}
+
+<form method="GET" action="save_vid_ypr/">
+	<table>
+		<tr>
+			<td>Наименование</td>
+			<td><input type="text" name="vid" /></td>
+		</tr>
+	</table>
+	<input type="submit" value="Сохранить"/>
+
+</form>
+
 </ul>
 {% endblock %}	
 

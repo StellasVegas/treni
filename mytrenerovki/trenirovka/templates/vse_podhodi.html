@@ -1,0 +1,48 @@
+{% extends "index.html" %}
+
+
+{% block sidebar %}
+<ul>
+		<h1>
+		  Список всех тренировок
+		</h1>	
+</ul>
+{% endblock %}	
+
+{% block content%}
+
+		<table border="1">
+					<td  style="font-weight:bold" > ID</td>
+					<td  style="font-weight:bold" >User</td>
+					<td  style="font-weight:bold" > Занятие</td>
+					<td  style="font-weight:bold" >ID Упр</td>
+					<td  style="font-weight:bold" >№ Упр</td>
+					<td  style="font-weight:bold" > Вид Упражнения</td>
+					<td  style="font-weight:bold" >Тип подхода</td>
+					<td  style="font-weight:bold" > № Подхода</td>
+					<td  style="font-weight:bold" >Вес</td>
+					<td  style="font-weight:bold" > Количество повторений</td>
+
+			{% for podhod in vse_podhodi_list %}
+				<tr>
+					
+					<td>{{podhod.id}}</td>
+					<td>{{podhod.user}}</td>					
+					<td>{{podhod.zanyatie}}</td>
+					<td>{{podhod.ypraznenie}}</td>	
+					<td>{{podhod.pp_yprazneniya}}</td>					
+					<td>{{podhod.vid_treni}}</td>
+					<td>{{podhod.vid_podhoda}}</td>					
+					<td>{{podhod.pp_podhoda}}</td>
+					<td>{{podhod.ves}}</td>					
+					<td>{{podhod.povtoreniya}}</td>
+
+
+
+				</tr>
+			{% empty %}
+				<tr><td>Категорий нет</td></tr>
+			{% endfor%}
+		</table>	
+
+{% endblock %}

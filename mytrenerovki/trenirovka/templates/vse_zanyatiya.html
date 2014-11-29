@@ -1,0 +1,33 @@
+{% extends "index.html" %}
+
+
+{% block sidebar %}
+<ul>
+		<h1>
+		  Список Занятий
+		</h1>	
+</ul>
+{% endblock %}	
+
+{% block content%}
+
+		<table border="1">
+					<td  style="font-weight:bold" > ID</td>
+					<td  style="font-weight:bold" >User</td>
+					<td  style="font-weight:bold" > Занятие</td>
+
+
+			{% for item in vse_zanyatiya_list %}
+				<tr>
+					
+					<td><a href="/zanyatiya/get/{{item.id}}/">{{item.id}}</a></td>
+					<td>{{item.user}}</td>					
+					<td>{{item.date}}</td>
+
+				</tr>
+			{% empty %}
+				<tr><td>Категорий нет</td></tr>
+			{% endfor%}
+		</table>	
+
+{% endblock %}

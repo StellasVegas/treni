@@ -34,19 +34,44 @@ class Vid_Treni(models.Model):
 		ordering 		= [u'name']
 
 
-#		
-class Podhod(models.Model):
+class Zanyatie(models.Model):
+	user = models.CharField(max_length=100)
+	date = models.CharField(max_length=100)
 
-	user           = models.CharField(max_length=200)
+	def __unicode__ ( self ) :
+		return self.date
+
+
+
+
+class Yprazneniya(models.Model):
 
 	pp_yprazneniya = models.ForeignKey(PP_Yprazneniya)
 	vid_treni      = models.ForeignKey(Vid_Treni)
 	vid_podhoda    = models.ForeignKey(Vid_Podhod)
-	pp_podhoda     = models.ForeignKey(PP_Podhod)
 
-	povtoreniya = models.IntegerField(default=0)
-	ves = models.IntegerField(default=0)
+	zanyatie       = models.ForeignKey(Zanyatie)
 
-	date = models.DateTimeField('date created')
-	status = models.CharField(max_length=200)
+	def __unicode__ ( self ) :
+		return str(self.id)
+
+#		
+class Podhod(models.Model):
+
+	zanyatie       = models.ForeignKey(Zanyatie)
+	ypraznenie	   = models.ForeignKey(Yprazneniya)
+	pp_yprazneniya = models.CharField(max_length=200)
+	vid_treni      = models.CharField(max_length=200)
+	vid_podhoda    = models.CharField(max_length=200)
+	pp_podhoda     = models.CharField(max_length=200)
+
+	povtoreniya    = models.IntegerField(default=0)
+	ves            = models.IntegerField(default=0)
+
+	
+	status         = models.CharField(max_length=200)
+
+
+
+
 

@@ -1,0 +1,109 @@
+{% extends "index.html" %}
+
+
+{% block sidebar %}
+
+	{% if request.user.is_authenticated %}
+		<div style="height:50px;" name="login_div">
+		{{request.user.username}}
+		</div>
+	{% endif %}
+
+
+<ul>
+Добавлен элемент {{name}}
+
+<form method="GET" action="save_zanyatie/">
+	<table>
+		<tr>
+			<td>Занятие №</td>
+			<td><input type="text" name="zanyatie" /></td>
+		</tr>		
+
+		<tr>
+			<td>Упражнение №</td>
+			<td><input type="text" name="ypraznenie" /></td>
+		</tr>
+
+		<tr>
+			<td>Упражнение Тип</td>
+			<td>
+				<select name="tip">
+				{%for tip in vid_treni_list %}
+					<option value="{{tip.name}}" > {{tip.name}}</option>
+				{% endfor %}
+				</select>
+
+			</td>
+		</tr>
+
+		<tr>
+			<td>Упражнение Вид</td>
+			<td>
+				<select name="vid">
+				{%for vid in vid_podhoda_list %}
+					<option value="{{vid.name}}" > {{vid.name}}</option>
+				{% endfor %}
+				</select>
+
+			</td>
+		</tr>
+
+		<tr>
+			<td>Подход № -1 Вес и повтороения</td>
+			<td><input type="text" name="podhod-1-ves" /></td>
+			<td><input type="text" name="podhod-1-raz" /></td>
+		</tr>
+		
+		<tr>
+			<td>Подход № 0 Вес и повтороения</td>
+			<td><input type="text" name="podhod-0-ves" /></td>
+			<td><input type="text" name="podhod-0-raz" /></td>
+		</tr>
+
+		
+		<tr>
+			<td>Подход № 1 Вес и повтороения</td>
+			<td><input type="text" name="podhod+1-ves" /></td>
+			<td><input type="text" name="podhod+1-raz" /></td>
+		</tr>		
+		
+		<tr>
+			<td>Подход № 2 Вес и повтороения</td>
+			<td><input type="text" name="podhod+2-ves" /></td>
+			<td><input type="text" name="podhod+2-raz" /></td>
+		</tr>		
+		
+		<tr>
+			<td>Подход № 3 Вес и повтороения</td>
+			<td><input type="text" name="podhod+3-ves" /></td>
+			<td><input type="text" name="podhod+3-raz" /></td>
+		</tr>		
+		
+		<tr>
+			<td>Подход № 4 Вес и повтороения</td>
+			<td><input type="text" name="podhod+4-ves" /></td>
+			<td><input type="text" name="podhod+4-raz" /></td>
+		</tr>		
+		
+		<tr>
+			<td>Подход № 5 Вес и повтороения</td>
+			<td><input type="text" name="podhod+5-ves" /></td>
+			<td><input type="text" name="podhod+5-raz" /></td>
+		</tr>
+
+
+	</table>
+	<input type="submit" value="Сохранить"/>
+
+
+
+</ul>
+{% endblock %}	
+
+{% block content%}
+
+
+
+
+{% endblock %}
