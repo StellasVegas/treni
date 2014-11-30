@@ -40,9 +40,9 @@ def vse_zanyatiya (request) :
 	return render_to_response ('vse_zanyatiya.html', locals() )
 
 def zanyatie (request, item_id=1) :
-	name_user = Zanyatie.objects.get(id=item_id)
+	name_user 		 = Zanyatie.objects.get(id=item_id)
 	yprazneniya_list = Yprazneniya.objects.filter(zanyatie=item_id)
-	zanyatie_list = Podhod.objects.filter(zanyatie=item_id)
+	zanyatie_list	 = Podhod.objects.filter(zanyatie=item_id)
 	return render_to_response ('zanyatie.html', locals() )
 
 
@@ -58,10 +58,59 @@ def save_vid_ypr (request) :
 
 
 @login_required(login_url='/login/')
-def add_zanyatie (request) :
+def add_zanyatie_old (request) :
+	user = request.user.username
+	new_zanyatie = Zanyatie(user = user)
+	new_zanyatie.save()
+
 	vid_treni_list = Vid_Treni.objects.all()
 	vid_podhoda_list = Vid_Podhod.objects.all()
 	return render_to_response ('add_zanyatie.html', locals() )
+
+
+
+@login_required(login_url='/login/')
+def add_zanyatie (request) :
+	user = request.user.username
+	new_zanyatie = Zanyatie(user = user)
+	new_zanyatie.save()
+
+	yprazneniya_list = Yprazneniya.objects.filter(zanyatie=new_zanyatie)
+
+	vid_treni_list = Vid_Treni.objects.all()
+	vid_podhoda_list = Vid_Podhod.objects.all()
+	pp_yprazneniya_list = PP_Yprazneniya.objects.all()
+	return render_to_response ('add_zanyatie_new.html', locals() )	
+
+
+@login_required(login_url='/login/')
+def add_ypraznenie (request) :
+	user = request.user.username
+	zanyatie = request.GET['zanyatie']
+
+	pp       = request.GET['pp']
+	tip      = request.GET['tip']
+	vid      = request.GET['vid']
+
+	p= PP_Yprazneniya.objects.get(name=pp)
+	t= Vid_Treni.objects.get(name=tip)
+	v= Vid_Podhod.objects.get(name=vid )
+	z= Zanyatie.objects.get(id=zanyatie)
+
+	new_ypr = Yprazneniya(	pp_yprazneniya = p,
+							vid_treni      = t,
+							vid_podhoda    = v,
+							zanyatie       = z )
+	new_ypr.save()
+
+	yprazneniya_list = Yprazneniya.objects.filter(zanyatie=zanyatie)
+
+	vid_treni_list = Vid_Treni.objects.all()
+	vid_podhoda_list = Vid_Podhod.objects.all()
+	pp_yprazneniya_list = PP_Yprazneniya.objects.all()
+	return render_to_response ('add_ypraznenie.html', locals() )
+
+
 
 def save_zanyatie (request) :
 	user = request.user.username

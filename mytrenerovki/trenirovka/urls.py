@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     url(r'^zanyatiya/$', 'trenirovka.views.vse_zanyatiya'),
     url(r'^add_zanyatie/save_zanyatie/$', 'trenirovka.views.save_zanyatie'),
     url(r'^add_zanyatie/$', 'trenirovka.views.add_zanyatie'),
+    url(r'^add_ypraznenie/$', 'trenirovka.views.add_ypraznenie'),
     url(r'^login/$', 'trenirovka.views.login'),
     url(r'^$', 'trenirovka.views.pp_podhod'),
 )

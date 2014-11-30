@@ -28,6 +28,7 @@
 					<td  style="font-weight:bold" > Количество повторений</td>
 
 			{%for podhod in podhodi_list %}
+			{% if podhod.povtoreniya %}
 				<tr>
 					
 					<td>{{podhod.id}}</td>
@@ -45,6 +46,7 @@
 
 
 				</tr>
+			{% endif %}
 			{% endfor %}
 
 

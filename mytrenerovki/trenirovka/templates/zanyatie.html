@@ -26,8 +26,8 @@
 						<td  style="font-weight:bold" > № Подход</td>
 
 							{% for podhod in zanyatie_list %}
-								
-								{%if ypr.id == podhod.ypraznenie %}
+
+								{%if ypr == podhod.ypraznenie %}
 											
 									<td>{{podhod.pp_podhoda}}</td>
 									
@@ -37,17 +37,16 @@
 								<tr><td>Подходов нет</td></tr>
 							{% endfor%}
 					</tr>
-
 					<tr>
 						<td  style="font-weight:bold" > № Вес</td>	
 							{% for podhod in zanyatie_list %}
-
-									{%if ypr.id == podhod.ypraznenie %}
+	
+								{%if ypr == podhod.ypraznenie %}
 
 										<td>{{podhod.ves}}</td>			
-
 									
-									{% endif%}
+								{% endif%}
+									
 						
 							{% empty %}
 								<td>Подходов нет</td>
@@ -57,9 +56,11 @@
 					<tr>
 						<td  style="font-weight:bold" > Повторения</td>	
 							{% for podhod in zanyatie_list %}
-
-								{%if ypr.id == podhod.ypraznenie%}			
+	
+								{%if ypr == podhod.ypraznenie %}
+					
 									<td>{{podhod.povtoreniya}}</td>
+									
 								{% endif%}
 										
 							{% empty %}

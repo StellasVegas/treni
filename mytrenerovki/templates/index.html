@@ -56,5 +56,14 @@
 
 
 </div>
+
+    {% if request.user.is_authenticated %}
+        <div style="height:50px;" name="login_div">
+        <p>
+        Вы залогинены как:   </p>
+        {{request.user.username}}
+        </div>
+    {% endif %}
+
 </body>
 </html>

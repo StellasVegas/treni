@@ -1,0 +1,99 @@
+{% extends "index.html" %}
+
+
+{% block sidebar %}
+
+	{% if request.user.is_authenticated %}
+		<div style="height:50px;" name="login_div">
+		{{request.user.username}}
+		</div>
+	{% endif %}
+
+
+<ul>
+Добавлен элемент {{name}}
+
+<form method="GET" action="/add_ypraznenie/">
+	<table>
+		<tr>
+			<td>Занятие №</td>
+			<td><input type="text" name="zanyatie" value="{{zanyatie}}" readonly /></td>
+		</tr>		
+
+		<tr>
+			<td>Упражнение №</td>
+			<td><input type="text" name="ypraznenie" value="{{ypraznenie.id}}" readonly /></td>
+		</tr>
+
+		<tr>
+			<td>Упражнение №</td>
+			<td>
+				<select name="pp">
+				{%for pp in pp_yprazneniya_list %}
+					<option value="{{pp.name}}" > {{pp.name}}</option>
+				{% endfor %}
+				</select>
+
+			</td>
+		</tr>
+
+		<tr>
+			<td>Упражнение Тип</td>
+			<td>
+				<select name="tip">
+				{%for tip in vid_treni_list %}
+					<option value="{{tip.name}}" > {{tip.name}}</option>
+				{% endfor %}
+				</select>
+
+			</td>
+		</tr>
+
+		<tr>
+			<td>Упражнение Вид</td>
+			<td>
+				<select name="vid">
+				{%for vid in vid_podhoda_list %}
+					<option value="{{vid.name}}" > {{vid.name}}</option>
+				{% endfor %}
+				</select>
+
+			</td>
+		</tr>
+
+
+
+	</table>
+	<input type="submit" value="Сохранить"/>
+
+
+
+</ul>
+{% endblock %}	
+
+{% block content%}
+
+		<table border="1">
+					<td  style="font-weight:bold" > Занятие</td>
+					<td  style="font-weight:bold" >№ Упражнения</td>
+					<td  style="font-weight:bold" > Вид упражнения</td>
+					<td  style="font-weight:bold" >Тип подхода</td>
+
+			{% for ypr in yprazneniya_list %}
+				<tr>
+					
+					<td>{{z.id}}</td>
+					<td>{{ypr.pp_yprazneniya}}</td>					
+					<td>{{ypr.vid_treni}}</td>
+					<td>{{ypr.vid_podhoda}}</td>	
+
+
+				</tr>
+			{% empty %}
+				<tr><td>Категорий нет</td></tr>
+			{% endfor%}
+		</table>	
+
+
+
+{% endblock %}
