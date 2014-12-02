@@ -13,7 +13,8 @@
 <ul>
 Добавлен элемент {{name}}
 
-<form method="GET" action="save_zanyatie/">
+<form method="POST" action="save_zanyatie/">
+	{% csrf_token %}
 	<table>
 		<tr>
 			<td>Занятие №</td>

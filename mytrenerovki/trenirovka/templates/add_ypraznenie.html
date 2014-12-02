@@ -13,7 +13,8 @@
 <ul>
 Добавлен элемент {{name}}
 
-<form method="GET" action="/add_ypraznenie/">
+<form method="POST" action="/add_ypraznenie/">
+	{% csrf_token %}
 	<table>
 		<tr>
 			<td>Занятие №</td>
@@ -64,7 +65,7 @@
 
 
 	</table>
-	<input type="submit" value="Сохранить"/>
+	<input type="submit" name="sv" value="Save"/>
 
 
 
@@ -82,8 +83,8 @@
 			{% for ypr in yprazneniya_list %}
 				<tr>
 					
-					<td>{{z.id}}</td>
-					<td>{{ypr.pp_yprazneniya}}</td>					
+					<td>{{zanyatie}}</td>
+					<td > <a href="/ypraznenie/get/{{ypr.id}}">{{ypr.pp_yprazneniya}}  </a> </td>					
 					<td>{{ypr.vid_treni}}</td>
 					<td>{{ypr.vid_podhoda}}</td>	
 

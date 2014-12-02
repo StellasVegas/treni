@@ -8,6 +8,7 @@
 {% if request.user.is_authenticated %}
 	<div style="height:50px;" name="login_div">
 	{{request.user.username}}
+	{{z}}
 	</div>
 {% else %}
 
@@ -21,6 +22,10 @@
 
 			<tr><td>Password </td>
 				<td><input type="text" name="password"/></td>
+			</tr>
+
+			<tr><td>Zanyatie </td>
+				<td><input type="text" name="zanyatie"/></td>
 			</tr>
 
 		</table>

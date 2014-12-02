@@ -80,17 +80,18 @@ def add_zanyatie (request) :
 	vid_treni_list = Vid_Treni.objects.all()
 	vid_podhoda_list = Vid_Podhod.objects.all()
 	pp_yprazneniya_list = PP_Yprazneniya.objects.all()
-	return render_to_response ('add_zanyatie_new.html', locals() )	
+	return render_to_response ('add_zanyatie_new.html', locals() , context_instance=RequestContext(request))	
 
 
 @login_required(login_url='/login/')
 def add_ypraznenie (request) :
 	user = request.user.username
-	zanyatie = request.GET['zanyatie']
+	if request.method == "POST":
+		zanyatie = request.POST['zanyatie']
+		pp       = request.POST.get('pp')
+		tip      = request.POST.get('tip')
+		vid      = request.POST.get('vid')
 
-	pp       = request.GET['pp']
-	tip      = request.GET['tip']
-	vid      = request.GET['vid']
 
 	p= PP_Yprazneniya.objects.get(name=pp)
 	t= Vid_Treni.objects.get(name=tip)
@@ -103,12 +104,14 @@ def add_ypraznenie (request) :
 							zanyatie       = z )
 	new_ypr.save()
 
+
+
 	yprazneniya_list = Yprazneniya.objects.filter(zanyatie=zanyatie)
 
 	vid_treni_list = Vid_Treni.objects.all()
 	vid_podhoda_list = Vid_Podhod.objects.all()
 	pp_yprazneniya_list = PP_Yprazneniya.objects.all()
-	return render_to_response ('add_ypraznenie.html', locals() )
+	return render_to_response ('add_ypraznenie.html', locals() , context_instance=RequestContext(request))
 
 
 
@@ -166,13 +169,164 @@ def save_zanyatie (request) :
 	podhodi_list = [p1,p2,p3,p4,p5,p6,p7]
 
 	#vid_ypr.save()
-	return render_to_response('save_zanyatie.html', locals() )
+	return render_to_response('save_zanyatie.html', locals(), context_instance=RequestContext(request) )
+
+
+def save_zanyatie_ypr (request) :
+	user = request.user.username
+	zan = request.POST['zanyatie']
+	ypr = request.POST['ypraznenie']
+	tip = request.POST['tip']
+	vid = request.POST['vid']
+
+
+	zanyatie= Zanyatie.objects.get(id=zan)
+	ypraznenie= Yprazneniya.objects.get(id=ypr)
+
+
+	try:
+	    p1 = Podhod.objects.get(zanyatie=zanyatie, ypraznenie=ypraznenie, pp_podhoda= u'0' )
+	except Podhod.DoesNotExist:
+	    p1 = None
+	try:
+	    p2 = Podhod.objects.get(zanyatie=zanyatie, ypraznenie=ypraznenie, pp_podhoda= u'1' )
+	except Podhod.DoesNotExist:
+	    p2 = None
+	try:
+	    p3 = Podhod.objects.get(zanyatie=zanyatie, ypraznenie=ypraznenie, pp_podhoda= u'2' )
+	except Podhod.DoesNotExist:
+	    p3 = None
+	try:
+	    p4 = Podhod.objects.get(zanyatie=zanyatie, ypraznenie=ypraznenie, pp_podhoda= u'3' )
+	except Podhod.DoesNotExist:
+	    p4 = None
+	try:
+	    p5 = Podhod.objects.get(zanyatie=zanyatie, ypraznenie=ypraznenie, pp_podhoda= u'4' )
+	except Podhod.DoesNotExist:
+	    p5 = None
+
+	try:
+	    p6 = Podhod.objects.get(zanyatie=zanyatie, ypraznenie=ypraznenie, pp_podhoda= u'5' )
+	except Podhod.DoesNotExist:
+	    p6 = None
+
+	try:
+	    p7 = Podhod.objects.get(zanyatie=zanyatie, ypraznenie=ypraznenie, pp_podhoda= u'6' )
+	except Podhod.DoesNotExist:
+	    p7 = None
+
+	podhodi_list = [p1,p2,p3,p4,p5,p6,p7]
+
+	for num, podhod in enumerate(podhodi_list):
+		if podhod is None:
+			ves = 'podhod-%s-ves' % str(num)
+			pod = 'podhod-%s-raz' % str(num)
+			podhod_ves = request.POST.get(ves) 
+			podhod_raz = request.POST.get(pod)
+
+			povtoreniya = podhod_raz
+			ves         = podhod_ves
+
+#			podhod=Podhod(zanyatie = zanyatie, ypraznenie = ypraznenie, pp_yprazneniya = u'1', vid_treni = tip, 
+#							vid_podhoda = vid, pp_podhoda =  num ,povtoreniya = povtoreniya, ves = ves)
+
+
+			podhod=Podhod(zanyatie = zanyatie, ypraznenie = ypraznenie, pp_yprazneniya = u'1', vid_treni = tip, 
+							vid_podhoda = vid, pp_podhoda =  num )
+			if ves :
+				podhod.ves = ves 
+			
+			if povtoreniya:
+				podhod.povtoreniya = povtoreniya 
+			
+			podhod.save()
+			podhodi_list[num] = podhod
+
+		else:
+			ves = 'podhod-%s-ves' % str(num)
+			pod = 'podhod-%s-raz' % str(num)
+			podhod_ves = request.POST.get(ves) 
+			podhod_raz = request.POST.get(pod) 
+			if podhod_ves :
+				podhod.ves         = int(podhod_ves)
+			if podhod_raz :
+				podhod.povtoreniya = int(podhod_raz)
+			podhod.save()
+
+
+	#podhodi_list = [p1,p2,p3,p4,p5,p6,p7]
+
+
+	vid_treni_list = Vid_Treni.objects.all()
+	vid_podhoda_list = Vid_Podhod.objects.all()
+	pp_yprazneniya_list = PP_Yprazneniya.objects.all()
+
+	#vid_ypr.save()
+	return render_to_response('ypraznenie.html', locals(), context_instance=RequestContext(request) )
+
+
+
+
+@login_required(login_url='/login/')
+def ypraznenie (request, ypraznenie_id) :
+	user = request.user.username
+
+	ypraznenie = Yprazneniya.objects.get(id=ypraznenie_id)
+	zanyatie = ypraznenie.zanyatie
+	#podhodi_list = Podhod.objects.filter (ypraznenie = ypraznenie)
+
+	vid_treni_list = Vid_Treni.objects.all()
+	vid_podhoda_list = Vid_Podhod.objects.all()
+	pp_yprazneniya_list = PP_Yprazneniya.objects.all()
+
+	try:
+	    p1 = Podhod.objects.get(ypraznenie = ypraznenie, pp_podhoda  = '0')
+	except Podhod.DoesNotExist:
+	    p1 = None
+	    
+	try:
+	    p2 = Podhod.objects.get(ypraznenie = ypraznenie, pp_podhoda  = '1')
+	except Podhod.DoesNotExist:
+	    p2 = None
+	    
+	try:
+	    p3 = Podhod.objects.get(ypraznenie = ypraznenie, pp_podhoda  = '2')
+	except Podhod.DoesNotExist:
+	    p3 = None
+	    
+	try:
+	    p4 = Podhod.objects.get(ypraznenie = ypraznenie, pp_podhoda  = '3')
+	except Podhod.DoesNotExist:
+	    p4 = None
+	    
+	try:
+	    p5 = Podhod.objects.get(ypraznenie = ypraznenie, pp_podhoda  = '4')
+	except Podhod.DoesNotExist:
+	    p5 = None
+	    
+	try:
+	    p6 = Podhod.objects.get(ypraznenie = ypraznenie, pp_podhoda  = '5')
+	except Podhod.DoesNotExist:
+	    p6 = None
+	    
+	try:
+	    p7 = Podhod.objects.get(ypraznenie = ypraznenie, pp_podhoda  = '6')
+	except Podhod.DoesNotExist:
+	    p7 = None
+
+	
+
+	param = 1
+
+	return render_to_response ('ypraznenie_create.html', locals() , context_instance=RequestContext(request))	
 
 
 def login( request) :
 
 	#c = {}
    # c.update(csrf(request))
+	if request.method == "POST":
+		z = request.POST['zanyatie']
 
 	if not request.user.is_authenticated():
 		try :

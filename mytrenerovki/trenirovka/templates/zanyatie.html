@@ -18,7 +18,7 @@
 	{% for ypr in yprazneniya_list %}
 		<div>	
 			<tr>
-				<p>{{ypr.pp_yprazneniya}}. Вид упражнения: {{ypr.vid_treni}}. Тип упражнения: {{ypr.vid_podhoda}}</p>		
+				<p><a href="/ypraznenie/get/{{ypr.id}}">{{ypr.pp_yprazneniya}}. </a> Вид упражнения: {{ypr.vid_treni}}. Тип упражнения: {{ypr.vid_podhoda}}</p>		
 			</tr>
 
 				<table border="1">
