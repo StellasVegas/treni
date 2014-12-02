@@ -1,0 +1,204 @@
+{% extends "index.html" %}
+
+
+{% block sidebar %}
+
+	{% if request.user.is_authenticated %}
+		<div style="height:50px;" name="login_div">
+		{{request.user.username}}
+		{{p1.zanyatie.id}}
+		{{p1.pp_podhoda }}
+		{{p1.ypraznenie}}
+		{{param}}
+		{% if p1 %}	
+		{% else %}
+					<div>{th</div>
+
+		{% endif%}
+		</div>
+	{% endif %}
+
+
+<ul>
+Добавлен элемент {{name}}
+
+<form method="POST" action="/ypraznenie/save_zanyatie_ypr/">
+	{% csrf_token %}
+	<table>
+		<tr>
+			<td>Занятие №</td>
+			<td><input type="text" name="zanyatie" value= "{{zanyatie.id}}" readonly /></td>
+		</tr>		
+
+		<tr>
+			<td>Упражнение №</td>
+			<td><input type="text" name="ypraznenie" value="{{ypraznenie.id}}" readonly  /></td>
+		</tr>
+
+		<tr>
+			<td>Упражнение Тип</td>
+			<td>
+				{% if ypraznenie.vid_treni %}
+					<input type="text" name="tip" value="{{ypraznenie.vid_treni}}" readonly  />
+				{% else %}
+					<select name="tip">
+					{%for tip in vid_treni_list %}
+						<option value="{{tip.name}}" > {{tip.name}}</option>
+					{% endfor %}
+					</select>
+				{% endif%}					
+
+			</td>
+		</tr>
+
+		<tr>
+			<td>Упражнение Вид</td>
+			<td>
+				{% if ypraznenie.vid_podhoda %}
+					<input type="text" name="vid" value="{{ypraznenie.vid_podhoda}}" readonly  />
+				{% else %}				
+					<select name="vid">
+						{%for vid in vid_podhoda_list %}
+							<option value="{{vid.name}}" > {{vid.name}}</option>
+						{% endfor %}
+					</select>
+				{% endif%}		
+			</td>
+		</tr>
+
+		<tr>
+			<td>Подход № -1 Вес и повторения</td>
+
+				{% if p1 %}	
+					<td><input type="text" name="podhod-0-ves" value="{{p1.ves}}" />
+				{% else %}						
+					<td><input type="text" name="podhod-0-ves" /></td>
+				{% endif%}
+
+				{% if p1 %}	
+					<td><input type="text" name="podhod-0-raz" value="{{p1.povtoreniya}}" />
+				{% else %}						
+					<td><input type="text" name="podhod-0-raz" /></td>
+				{% endif%}						
+
+		</tr>
+		
+		<tr>
+			<td>Подход № 0 Вес и повторения</td>
+			
+				{% if p2 %}	
+					<td><input type="text" name="podhod-1-ves" value="{{p2.ves}}" />
+				{% else %}						
+					<td><input type="text" name="podhod-1-ves" /></td>
+				{% endif%}
+
+				{% if p2 %}	
+					<td><input type="text" name="podhod-1-raz" value="{{p2.povtoreniya}}" />
+				{% else %}						
+					<td><input type="text" name="podhod-1-raz" /></td>
+				{% endif%}						
+
+
+		</tr>
+
+		
+		<tr>
+			<td>Подход № 1 Вес и повторения</td>
+			
+				{% if p3 %}	
+					<td><input type="text" name="podhod-2-ves" value="{{p3.ves}}" />
+				{% else %}						
+					<td><input type="text" name="podhod-2-ves" /></td>
+				{% endif%}
+
+				{% if p3 %}	
+					<td><input type="text" name="podhod-2-raz" value="{{p3.povtoreniya}}" />
+				{% else %}						
+					<td><input type="text" name="podhod-2-raz" /></td>
+				{% endif%}						
+
+		</tr>		
+		
+		<tr>
+			<td>Подход № 2 Вес и повторения</td>
+			
+				{% if p4 %}	
+					<td><input type="text" name="podhod-3-ves" value="{{p4.ves}}" />
+				{% else %}						
+					<td><input type="text" name="podhod-3-ves" /></td>
+				{% endif%}
+
+				{% if p4 %}	
+					<td><input type="text" name="podhod-3-raz" value="{{p4.povtoreniya}}" />
+				{% else %}					
+					<td><input type="text" name="podhod-3-raz" /></td>
+				{% endif%}						
+
+		</tr>		
+		
+		<tr>
+			<td>Подход № 3 Вес и повторения</td>
+			
+				{% if p5 %}	
+					<td><input type="text" name="podhod-4-ves" value="{{p5.ves}}" />
+				{% else %}						
+					<td><input type="text" name="podhod-4-ves" /></td>
+				{% endif%}
+
+				{% if p5 %}	
+					<td><input type="text" name="podhod-4-raz" value="{{p5.povtoreniya}}" />
+				{% else %}				
+					<td><input type="text" name="podhod-4-raz" /></td>
+				{% endif%}						
+
+		</tr>		
+		
+		<tr>
+			<td>Подход № 4 Вес и повторения</td>
+			
+				{% if p6 %}	
+					<td><input type="text" name="podhod-5-ves" value="{{p6.ves}}" />
+				{% else %}						
+					<td><input type="text" name="podhod-5-ves" /></td>
+				{% endif%}
+
+				{% if p6 %}	
+					<td><input type="text" name="podhod-5-raz" value="{{p6.povtoreniya}}" />
+				{% else %}						
+					<td><input type="text" name="podhod-5-raz" /></td>
+				{% endif%}						
+
+		</tr>		
+		
+		<tr>
+			<td>Подход № 5 Вес и повторения</td>
+			
+				{% if p7 %}	
+					<td><input type="text" name="podhod-6-ves" value="{{p7.ves}}" />
+				{% else %}						
+					<td><input type="text" name="podhod-6-ves" /></td>
+				{% endif%}
+
+				{% if p7 %}	
+					<td><input type="text" name="podhod-6-raz" value="{{p7.povtoreniya}}" />
+				{% else %}						
+					<td><input type="text" name="podhod-6-raz" /></td>
+				{% endif%}						
+
+		</tr>
+
+
+	</table>
+	<input type="submit" value="Сохранить"/>
+
+
+
+</ul>
+{% endblock %}	
+
+{% block content%}
+
+
+
+
+{% endblock %}
