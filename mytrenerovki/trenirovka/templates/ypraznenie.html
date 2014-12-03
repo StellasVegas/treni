@@ -71,131 +71,33 @@
 			</td>
 		</tr>
 
+		{%for pp in podhodi_list %}
+		 
 		<tr>
 			<td>Подход № -1 Вес и повторения</td>
 
-				{% if p1 %}	
-					<td><input type="text" name="podhod-0-ves" value="{{p1.ves}}" />
+				{% if pp %}	
+					<td><input type="text" name="podhod-{{pp.pp_podhoda}}-ves" value="{{pp.ves}}" />
 				{% else %}						
-					<td><input type="text" name="podhod-0-ves" /></td>
+					<td><input type="text" name="podhod-{{pp.pp_podhoda}}-ves"/></td>
 				{% endif%}
 
-				{% if p1 %}	
-					<td><input type="text" name="podhod-0-raz" value="{{p1.povtoreniya}}" />
+				{% if pp %}	
+					<td><input type="text" name="podhod-{{pp.pp_podhoda}}-raz" value="{{pp.povtoreniya}}" />
 				{% else %}						
-					<td><input type="text" name="podhod-0-raz" /></td>
+					<td><input type="text" name="podhod-{{pp.pp_podhoda}}-raz" /></td>
 				{% endif%}						
 
 		</tr>
-		
-		<tr>
-			<td>Подход № 0 Вес и повторения</td>
-			
-				{% if p2 %}	
-					<td><input type="text" name="podhod-1-ves" value="{{p2.ves}}" />
-				{% else %}						
-					<td><input type="text" name="podhod-1-ves" /></td>
-				{% endif%}
-
-				{% if p2 %}	
-					<td><input type="text" name="podhod-1-raz" value="{{p2.povtoreniya}}" />
-				{% else %}						
-					<td><input type="text" name="podhod-1-raz" /></td>
-				{% endif%}						
 
 
-		</tr>
 
-		
-		<tr>
-			<td>Подход № 1 Вес и повторения</td>
-			
-				{% if p3 %}	
-					<td><input type="text" name="podhod-2-ves" value="{{p3.ves}}" />
-				{% else %}						
-					<td><input type="text" name="podhod-2-ves" /></td>
-				{% endif%}
-
-				{% if p3 %}	
-					<td><input type="text" name="podhod-2-raz" value="{{p3.povtoreniya}}" />
-				{% else %}						
-					<td><input type="text" name="podhod-2-raz" /></td>
-				{% endif%}						
-
-		</tr>		
-		
-		<tr>
-			<td>Подход № 2 Вес и повторения</td>
-			
-				{% if p4 %}	
-					<td><input type="text" name="podhod-3-ves" value="{{p4.ves}}" />
-				{% else %}						
-					<td><input type="text" name="podhod-3-ves" /></td>
-				{% endif%}
-
-				{% if p4 %}	
-					<td><input type="text" name="podhod-3-raz" value="{{p4.povtoreniya}}" />
-				{% else %}					
-					<td><input type="text" name="podhod-3-raz" /></td>
-				{% endif%}						
-
-		</tr>		
-		
-		<tr>
-			<td>Подход № 3 Вес и повторения</td>
-			
-				{% if p5 %}	
-					<td><input type="text" name="podhod-4-ves" value="{{p5.ves}}" />
-				{% else %}						
-					<td><input type="text" name="podhod-4-ves" /></td>
-				{% endif%}
-
-				{% if p5 %}	
-					<td><input type="text" name="podhod-4-raz" value="{{p5.povtoreniya}}" />
-				{% else %}				
-					<td><input type="text" name="podhod-4-raz" /></td>
-				{% endif%}						
-
-		</tr>		
-		
-		<tr>
-			<td>Подход № 4 Вес и повторения</td>
-			
-				{% if p6 %}	
-					<td><input type="text" name="podhod-5-ves" value="{{p6.ves}}" />
-				{% else %}						
-					<td><input type="text" name="podhod-5-ves" /></td>
-				{% endif%}
-
-				{% if p6 %}	
-					<td><input type="text" name="podhod-5-raz" value="{{p6.povtoreniya}}" />
-				{% else %}						
-					<td><input type="text" name="podhod-5-raz" /></td>
-				{% endif%}						
-
-		</tr>		
-		
-		<tr>
-			<td>Подход № 5 Вес и повторения</td>
-			
-				{% if p7 %}	
-					<td><input type="text" name="podhod-6-ves" value="{{p7.ves}}" />
-				{% else %}						
-					<td><input type="text" name="podhod-6-ves" /></td>
-				{% endif%}
-
-				{% if p7 %}	
-					<td><input type="text" name="podhod-6-raz" value="{{p7.povtoreniya}}" />
-				{% else %}						
-					<td><input type="text" name="podhod-6-raz" /></td>
-				{% endif%}						
-
-		</tr>
+		{% endfor %}
 
 
 	</table>
 	<input type="submit" value="Сохранить"/>
-
+</form>
 
 
 </ul>
