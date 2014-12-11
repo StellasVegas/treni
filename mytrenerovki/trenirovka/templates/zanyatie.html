@@ -18,10 +18,10 @@
 	{% for ypr in yprazneniya_list %}
 		<div>	
 			<tr>
-				<p><a href="/ypraznenie/get/{{ypr.id}}">{{ypr.pp_yprazneniya}}. </a> Вид упражнения: {{ypr.vid_treni}}. Тип упражнения: {{ypr.vid_podhoda}}</p>		
+				<p><a href="/ypraznenie/get/{{ypr.id}}">{{ypr.pp_yprazneniya}}. </a> Вид упражнения: {{ypr.vid_treni}}. Тип упражнения: {{ypr.vid_podhoda}} <a href="/add_ypraznenie_delete/{{ypr.id}}"> Удалить Упражнение </a> </p>		
 			</tr>
 
-				<table border="1">
+				<table  class="table" border="1">
 					<tr>
 						<td  style="font-weight:bold" > № Подход</td>
 
@@ -34,7 +34,7 @@
 								{% endif%}
 								
 							{% empty %}
-								<tr><td>Подходов нет</td></tr>
+								<td>Подходов нет</td>
 							{% endfor%}
 					</tr>
 					<tr>
@@ -81,19 +81,19 @@
 	<p>Добавить упражнение</p>
 	{% csrf_token %}
 	<table>
-		<tr>
+		<tr hidden>
 			<td>Занятие №</td>
 			<td><input type="text" name="zanyatie" value="{{item_id}}" readonly /></td>
 		</tr>	
 
-		<tr>
+		<tr >
 			<td>Упражнение №</td>
 			<td>
-				<select name="pp">
-				{%for pp in pp_yprazneniya_list %}
-					<option value="{{pp.name}}" > {{pp.name}}</option>
-				{% endfor %}
-				</select>
+				{% if next_pp %}	
+					<input type="text" name="pp" value="{{next_pp.name}}" readonly />
+				{% else %}						
+					<input type="text" name="pp" value="Первое упражнение" readonly/>
+				{% endif%}
 
 			</td>
 		</tr>
@@ -125,7 +125,7 @@
 
 
 	</table>
-	<input type="submit" value="Сохранить"/>
+	<input type="submit" value="Добавить упражнение"/>
 </form>
 
 

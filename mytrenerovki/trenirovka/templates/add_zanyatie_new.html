@@ -9,28 +9,35 @@
 		</div>
 	{% endif %}
 
+		<div style="height:50px;" name="login_div">
+			Занятие N {{new_zanyatie.id}}
+		</div>
 
-<ul>
-Добавлен элемент {{name}}
+	<p>{{now}}</p>
+
+
+{% endblock %}	
+
+{% block content%}
 
 <form method="POST" action="/add_ypraznenie/">
 	{% csrf_token %}
 	<table>
 		<tr>
-			<td>Занятие №</td>
-			<td><input type="text" name="zanyatie" value="{{new_zanyatie.id}}" readonly /></td>
+			<td hidden> Занятие №</td>
+			<td hidden><input type="text" name="zanyatie" value="{{new_zanyatie.id}}"  /></td>
 		</tr>		
 
-		<tr>
+		<tr hidden>
 			<td>Упражнение №</td>
-			<td>
-				<select name="pp">
-				{%for pp in pp_yprazneniya_list %}
-					<option value="{{pp.name}}" > {{pp.name}}</option>
-				{% endfor %}
-				</select>
+			
+				{% if next_pp %}	
+					<td><input type="text" name="pp" value="{{next_pp.name}}" readonly />
+				{% else %}						
+					<td><input type="text" name="pp" value="Первое упражнение" readonly/></td>
+				{% endif%}
 
-			</td>
+			
 		</tr>
 
 		<tr>
@@ -65,10 +72,10 @@
 
 
 
-</ul>
-{% endblock %}	
 
-{% block content%}
+
+
+
 
 		<table border="1">
 					<td  style="font-weight:bold" > Занятие</td>

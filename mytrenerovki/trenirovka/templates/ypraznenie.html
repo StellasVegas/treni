@@ -6,17 +6,6 @@
 	{% if request.user.is_authenticated %}
 		<div style="height:50px;" name="login_div">
 		{{request.user.username}}
-		{{podhodi_list.p1.zanyatie.id}}
-		{{podhodi_list.p1.pp_podhoda }}
-		{{podhodi_list.p1.ypraznenie}}
-		{{podhodi_list.p1.ves}}
-		{{param}}
-		
-		{%for pp in podhodi_list %}
-					{{pp.ves}}
-					{{pp.ypraznenie}}
-					{{pp.zanyatie.id}}
-		{% endfor %}
 
 		</div>
 
@@ -24,8 +13,9 @@
 	{% endif %}
 
 
-<ul>
-Добавлен элемент {{name}}
+{% endblock %}	
+
+{% block content%}
 
 <form method="POST" action="../save_zanyatie_ypr/">
 	{% csrf_token %}
@@ -36,10 +26,10 @@
 		</tr>		
 
 		<tr>
-			<td>Упражнение №</td>
-			<td><input type="text" name="ypraznenie" value="{{ypraznenie.id}}" readonly  /></td>
+			<td hidden >Упражнение №</td>
+			<td hidden ><input type="text" name="ypraznenie" value="{{ypraznenie.id}}" readonly  /></td>
 		</tr>
-
+		<tr></tr>
 		<tr>
 			<td>Упражнение Тип</td>
 			<td>
@@ -70,7 +60,9 @@
 				{% endif%}		
 			</td>
 		</tr>
-
+	</table>
+	<br>
+	<table>
 		{%for pp in podhodi_list %}
 		 
 		<tr>
@@ -96,16 +88,15 @@
 
 
 	</table>
+	<br>
 	<input type="submit" value="Сохранить"/>
 </form>
+<br>
+<br>
 
 
-</ul>
-{% endblock %}	
-
-{% block content%}
-
-
-
-
+<form method="POST" action="/zanyatiya/get/{{zanyatie.id}}/">
+	{% csrf_token %}
+	<input type="submit" value="Вернуться к редактированию занятия"/>
+</form>
 {% endblock %}

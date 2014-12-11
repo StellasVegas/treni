@@ -9,12 +9,44 @@
 		</div>
 	{% endif %}
 
+		<div style="height:50px;" name="login_div">
+		Занятие N {{zanyatie}}
+		</div>
 
-<ul>
-Добавлен элемент {{name}}
+
+{% endblock %}	
+
+{% block content%}
+
+		<table border="1">
+
+					<td  style="font-weight:bold" >№ Упражнения</td>
+					<td  style="font-weight:bold" > Вид упражнения</td>
+					<td  style="font-weight:bold" >Тип подхода</td>
+					<td  style="font-weight:bold" >Пометка на удаление </td>
+
+			{% for ypr in yprazneniya_list %}
+				<tr>
+					
+
+					<td > <a href="/ypraznenie/get/{{ypr.id}}">{{ypr.pp_yprazneniya}}  </a> </td>					
+					<td>{{ypr.vid_treni}}</td>
+					<td>{{ypr.vid_podhoda}}</td>	
+					<td><a href="/add_ypraznenie_delete/{{ypr.id}}" >Удалить </a></td>	
+
+
+				</tr>
+			{% empty %}
+				<tr><td>Категорий нет</td></tr>
+			{% endfor%}
+		</table>	
+
+
+
 
 <form method="POST" action="/add_ypraznenie/">
 	{% csrf_token %}
+	<p>Добавить упражнение в занятие</p>
 	<table>
 		<tr>
 			<td>Занятие №</td>
@@ -24,11 +56,8 @@
 		<tr>
 			<td>Упражнение №</td>
 			<td>
-				<select name="pp">
-				{%for pp in pp_yprazneniya_list %}
-					<option value="{{pp.name}}" > {{pp.name}}</option>
-				{% endfor %}
-				</select>
+	
+				<input type="text" name="pp" value="{{next_pp.name}}" readonly /></td>
 
 			</td>
 		</tr>
@@ -60,35 +89,10 @@
 
 
 	</table>
-	<input type="submit" name="sv" value="Save"/>
+	<input type="submit" name="sv" value="Добавить"/>
 
 
 
-</ul>
-{% endblock %}	
-
-{% block content%}
-
-		<table border="1">
-					<td  style="font-weight:bold" > Занятие</td>
-					<td  style="font-weight:bold" >№ Упражнения</td>
-					<td  style="font-weight:bold" > Вид упражнения</td>
-					<td  style="font-weight:bold" >Тип подхода</td>
-
-			{% for ypr in yprazneniya_list %}
-				<tr>
-					
-					<td>{{zanyatie}}</td>
-					<td > <a href="/ypraznenie/get/{{ypr.id}}">{{ypr.pp_yprazneniya}}  </a> </td>					
-					<td>{{ypr.vid_treni}}</td>
-					<td>{{ypr.vid_podhoda}}</td>	
-
-
-				</tr>
-			{% empty %}
-				<tr><td>Категорий нет</td></tr>
-			{% endfor%}
-		</table>	
 
 
 

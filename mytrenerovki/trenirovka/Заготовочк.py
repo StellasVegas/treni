@@ -42,3 +42,24 @@ class ProtectedView(TemplateView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(ProtectedView, self).dispatch(*args, **kwargs)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    url(r'^category_add/$', 'trenirovka.views.category_add', name='category', slug = category_slug ),
+
+    {% for category in categories %}
+   		 <li><a href="{% url 'category'  category.slug %}">{{ category.name }}</a></li>
+	{% endfor %}

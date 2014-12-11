@@ -5,24 +5,39 @@
 <ul>
 		<h1>
 		  Список Занятий
+
+		  {{request.user.username}}
 		</h1>	
 </ul>
 {% endblock %}	
 
 {% block content%}
+		<h1>
+		  Список Занятий
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		  {{request.user.username}}
+		</h1>	
 
-		<table border="1">
-					<td  style="font-weight:bold" > ID</td>
-					<td  style="font-weight:bold" >User</td>
-					<td  style="font-weight:bold" > Занятие</td>
+
+		<table  class="table" border="1">
+					<td width = 25,  style="font-weight:bold" > ID</td>
+					<td  style="font-weight:bold" hidden >User</td>
+					<td width = 250  style="font-weight:bold" > Дата </td>
+					<td width = 250  style="font-weight:bold" > Редактировать </td>
 
 
 			{% for item in vse_zanyatiya_list %}
 				<tr>
 					
-					<td><a href="/zanyatiya/get/{{item.id}}/">{{item.id}}</a></td>
-					<td>{{item.user}}</td>					
-					<td>{{item.date}}</td>
+					<td width = 25 ><a href="/zanyatiya/get/{{item.id}}/">{{item.id}}</a></td>
+					<td hidden >{{item.user}}</td>					
+					<td width = 250 >{{item.date}}</td>					
+					<td width = 250 >
+						<a href="/zanyatiya/get/{{item.id}}/"> Редактировать</a>
+						 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="/zanyatie/delete/{{item.id}}"> Удалить Занятие </a>
+
+					</td>
 
 				</tr>
 			{% empty %}

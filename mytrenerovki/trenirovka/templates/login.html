@@ -1,38 +1,23 @@
 {% extends "index.html" %}
 
+{% block title %}Login to Ranchgo{% endblock %}
+
+{% block content %}
+
+		<link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
 
 
-{% block content%}
+        <h1>Login to Ranchgo</h1>
+
+        <form class="form-signin" role="form" method="post" action=".">
+         <h2 class="form-signin-heading">Please sign in</h2>
+            {% csrf_token %}
+
+			<input class="form-control" placeholder="Username" id="id_username" maxlength="254" name="username" type="text" required autofocus=""/>
+			<input type="password" class="form-control" placeholder="Password" id="id_password" name="password" type="password" required />
 
 
-{% if request.user.is_authenticated %}
-	<div style="height:50px;" name="login_div">
-	{{request.user.username}}
-	{{z}}
-	</div>
-{% else %}
-
-
-	<form method="POST" action="/login/" >
-	{% csrf_token %}
-		<table>
-			<tr><td>Login </td>
-				<td><input type="text" name="login"/></td>
-			</tr>
-
-			<tr><td>Password </td>
-				<td><input type="text" name="password"/></td>
-			</tr>
-
-			<tr><td>Zanyatie </td>
-				<td><input type="text" name="zanyatie"/></td>
-			</tr>
-
-		</table>
-		<input type="submit" value="Войти"/>
-	</form>
-
-{% endif %}
-
+        	<button class="btn btn-lg btn-primary btn-block" type="submit" value="Submit" />Sign in</button>
+        </form>
 
 {% endblock %}

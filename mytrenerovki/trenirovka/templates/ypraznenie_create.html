@@ -22,6 +22,10 @@
 <ul>
 Добавлен элемент {{name}}
 
+
+{% endblock %}
+{% block content%}
+
 <form method="POST" action="/ypraznenie/save_zanyatie_ypr/">
 	{% csrf_token %}
 	<table>
@@ -194,9 +198,7 @@
 
 
 </ul>
-{% endblock %}	
 
-{% block content%}
 
 
 

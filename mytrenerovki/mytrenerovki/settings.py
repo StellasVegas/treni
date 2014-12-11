@@ -22,6 +22,9 @@ SECRET_KEY = '#bqh_k!6m1^c*=fa+)h867e+zs!ub)qe@9gm8kn#$!n#wf7@d*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'files', 'media')
+MEDIA_URL = '/media/'
+
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -32,6 +35,11 @@ TEMPLATE_DIRS = (
     '/home/serg/Trenirovki/mytrenerovki/templates',
 )
 
+#REGISTRATION_OPEN = True  
+#ACCOUNT_ACTIVATION_DAYS = 7 
+#REGISTRATION_AUTO_LOGIN = True
+#LOGIN_REDIRECT_URL = '/'
+#LOGIN_URL = '/accounts/login/'
 
 # Application definition
 
@@ -43,6 +51,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'trenirovka',
+#    'registration',
 )
 
 MIDDLEWARE_CLASSES = (

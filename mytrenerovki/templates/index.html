@@ -1,69 +1,89 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html>
-<head>
-    <title>система тренировок 5 по 8</title>
-    <link rel="stylesheet" type="text/css" href="{% static "css/foundation.css" %}">
-    <script src="{% static "js/jquery-2.1.1.js"%}" ></script>
-    <script src="{% static "js/ajax.js"%}" ></script>
+<head>    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="icon" href="http://getbootstrap.com/favicon.ico">
+
+    <title>система тренировок 5 по 8 {% block title %} {% endblock %}</title>
+
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
 </head>
 <body>
 
-<h1><a href="/">Мои Тренировки</a></h1>
-<div class="row">
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Главная</a>
+          <a class="navbar-brand" href="/zanyatiya/"> Все Занятия</a>
+          <a class="navbar-brand" href="/add_zanyatie/"> Добавить Занятие</a>
+
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/">Home</a></li>
+
+                    {% if request.user.is_authenticated %}
+                        <li><a href="{% url 'logout' %}">Logout</a></li>
+                    {% else %}
+                        <li><a href="{% url 'register' %}">Register Here</a></li>
+                        <li><a href="/login/">Login</a></li>
+                    {% endif %}
 
 
-{% block sidebar %}  {% endblock %}
-
-
-{% block content %} This is content area {% endblock %}
-
-
-    <div>
-        <a href="/podhodi/"> Справочник Порядковый номер подхода</a>
+            </ul>
+        </div>
     </div>
-
-    <div>
-        <a href="/ypr/"> Справочник номер Упражнения</a>
-    </div>
-
-    <div>
-        <a href="/vid_podhoda/"> Справочник Видов подходов (Основная, легкая)</a>
-    </div>
-
-    <div>
-        <a href="/vid_treni/"> Справочник Вид Упражнения</a>
-    </div>
-
-    <div>
-        <a href="/vse_podhodi/"> Все подходы</a>
-    </div>
-
-    <div>
-        <a href="/zanyatiya/"> Все Занятия</a>
-    </div>
-
-
-    <div>
-        <a href="/add_zanyatie/"> Добавить Занятие</a>
-    </div>
-
-    <div>
-        <a href="/add_vid_ypr/"> Добавить Упражнение</a>
-    </div>
-
-
-
 </div>
 
-    {% if request.user.is_authenticated %}
-        <div style="height:50px;" name="login_div">
-        <p>
-        Вы залогинены как:   </p>
-        {{request.user.username}}
-        </div>
-    {% endif %}
+
+
+
+<div class="container-fluid">
+      <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                    {% block sidebar %}{% endblock %}
+            </div>
+        
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <div>
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+       </div>
+</div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+    <script src="http://getbootstrap.com/assets/js/docs.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+
+
+
+
+
 
 </body>
 </html>
