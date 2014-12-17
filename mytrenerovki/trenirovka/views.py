@@ -17,12 +17,21 @@ import datetime
 from django.core.urlresolvers import reverse
 
 from trenirovka.models import PP_Podhod, PP_Yprazneniya, Vid_Podhod, Vid_Treni, Podhod, Zanyatie, Yprazneniya, UserProfile
-from trenirovka.forms import UserForm, UserProfileForm
+from trenirovka.forms import UserForm, UserProfileForm, ChangeDateZan
 
 def home (request) :
 	vid_treni_list = Vid_Treni.objects.all().filter(status = True)
 
 	vid_podhoda_list = Vid_Podhod.objects.all()
+
+	try:
+	    user 	     = User.objects.get(username = request.user.username)
+	    polsovatel 	 = UserProfile.objects.get(user = user) 
+	    vse_zanyatiya_list = Zanyatie.objects.all().filter(user= polsovatel, status = True).order_by('date')[:3]
+	except UserProfile.DoesNotExist:
+	    vse_zanyatiya_list = None
+
+
 
 	return render_to_response ('home.html', locals() )
 
@@ -52,15 +61,29 @@ def vse_podhodi (request) :
 def vse_zanyatiya (request) :
 	user 	     = User.objects.get(username = request.user.username)
 	polsovatel 	 = UserProfile.objects.get(user = user) 
-	vse_zanyatiya_list = Zanyatie.objects.all().filter(user= polsovatel, status = True)
+	vse_zanyatiya_list = Zanyatie.objects.all().filter(user= polsovatel, status = True) 
+	vse_zanyatiya_archive = Zanyatie.objects.all().filter(user= polsovatel, status = False).order_by('date').reverse()[:3]
+
 	return render_to_response ('vse_zanyatiya.html', locals() )
+
+@login_required(login_url='/login/')
+def vse_yprazneniya (request) :
+	user 	     = User.objects.get(username = request.user.username)
+	polsovatel 	 = UserProfile.objects.get(user = user) 
+
+	vse_yprazneniya_list = Yprazneniya.objects.all().filter(user= polsovatel, status = True, zanyatie__status__exact = True).order_by('zanyatie__date')
+	vse_yprazneniya_archive = Yprazneniya.objects.all().filter(user= polsovatel, zanyatie__status__exact = False).order_by('zanyatie__date').reverse()[:3]
+
+	return render_to_response ('vse_yprazneniya.html', locals() )
 
 @login_required(login_url='/login/')
 def zanyatie (request, item_id=1) :
 	user = request.user.username
-	name_user 		 = Zanyatie.objects.get(id=item_id)
+
+	zanyatie 		 = Zanyatie.objects.get(id=item_id)
 	yprazneniya_list = Yprazneniya.objects.filter(zanyatie=item_id, status = True)
 	zanyatie_list	 = Podhod.objects.filter(zanyatie=item_id)
+
 
 	vid_treni_list = Vid_Treni.objects.all()
 	vid_podhoda_list = Vid_Podhod.objects.all()
@@ -72,8 +95,34 @@ def zanyatie (request, item_id=1) :
 	except PP_Yprazneniya.DoesNotExist:
 	    next_pp = None
 
-	return render_to_response ('zanyatie.html', locals() , context_instance=RequestContext(request))
 
+	change_date_form = ChangeDateZan()
+
+	return render_to_response ('zanyatie.html', locals() , context_instance=RequestContext(request),)
+
+@login_required(login_url='/login/')
+def change_date (request) :
+	
+	user 	     = User.objects.get(username = request.user.username)
+	polsovatel 	 = UserProfile.objects.get(user = user) 
+	if request.method == "POST":
+		zanyatie_id = request.POST.get('zanyatie_id')
+		date       = request.POST.get('date')
+
+
+#	now = datetime.datetime.now()
+
+
+	z= Zanyatie.objects.get(id=zanyatie_id)
+	new_date = datetime.datetime.strptime(date, '%d.%m.%Y')
+	z.date = new_date
+	z.save()
+
+
+
+	redirect_url = reverse('zan', args=[z.id])
+
+	return HttpResponseRedirect(redirect_url)
 
 
 def add_vid_ypr (request) :
@@ -115,6 +164,23 @@ def zanyatie_delete (request, zanyatie_id) :
 	return HttpResponseRedirect('/zanyatiya/')
 
 @login_required(login_url='/login/')
+def zanyatie_recover (request, zanyatie_id) :
+	
+	user 	     = User.objects.get(username = request.user.username)
+	polsovatel 	 = UserProfile.objects.get(user = user) 
+
+
+	zanyatie = Zanyatie.objects.get(id=zanyatie_id)
+
+	zanyatie.status = True
+	zanyatie.save()
+
+
+	#redirect_url = reverse('zan', args=[zanyatie.id])
+
+	return HttpResponseRedirect('/zanyatiya/')
+
+@login_required(login_url='/login/')
 def add_zanyatie (request) :
 	user 	     = User.objects.get(username = request.user.username)
 	polsovatel 	 = UserProfile.objects.get(user = user) 
@@ -136,7 +202,12 @@ def add_zanyatie (request) :
 
 	now = datetime.datetime.now()
 	time = now.date()
-	return render_to_response ('add_zanyatie_new.html', locals() , context_instance=RequestContext(request))	
+
+	redirect_url = reverse('zan', args=[new_zanyatie.id])
+
+	return HttpResponseRedirect(redirect_url)
+
+#	return render_to_response ('add_zanyatie_new.html', locals() , context_instance=RequestContext(request))	
 
 
 @login_required(login_url='/login/')
@@ -317,7 +388,12 @@ def save_zanyatie_ypr (request) :
 	pp_yprazneniya_list = PP_Yprazneniya.objects.all()
 
 	#vid_ypr.save()
-	return render_to_response('ypraznenie.html', locals(), context_instance=RequestContext(request) )
+
+	redirect_url = reverse('ypr', args=[ypraznenie.id])
+
+	return HttpResponseRedirect(redirect_url)
+
+	#return render_to_response('ypraznenie.html', locals(), context_instance=RequestContext(request) )
 
 
 
